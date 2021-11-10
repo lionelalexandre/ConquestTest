@@ -1,4 +1,5 @@
 import os
+import sys
 import os.path
 import numpy as np
 from pdb import set_trace
@@ -24,7 +25,7 @@ class TestIOHandler:
     Path to test data file
   """
 
-  def __init__(self, test_object, ref=False, comp=False, ref_dir="reference", test_dir="test", ):
+  def __init__(self, test_object, ref=False, comp=False, ref_dir="reference", test_dir="test"):
     """Constructor for TestIOHandler
 
     Parameters
@@ -40,8 +41,15 @@ class TestIOHandler:
     self.comp     = comp
     self.test_dir = test_dir
     name = self.tester.get_name
-    self.ref_path  = os.path.join(self.ref_dir, self.tester.get_name() + ".ref")
+    self.ref_path  = os.path.join(self.ref_dir,  self.tester.get_name() + ".ref")
     self.test_path = os.path.join(self.test_dir, self.tester.get_name() + ".dat")
+    
+    if (self.ref_dir == self.test_dir):
+        sys.exit('error TestIOHandler: ref_dir = test_dir')
+        
+    print(f'reference directory: {os.path.join(self.ref_dir)}')  
+    print(f'test directory: {os.path.join(self.test_dir)}')  
+           
     if ref:
       self.mkdir(self.ref_dir)
     else:
