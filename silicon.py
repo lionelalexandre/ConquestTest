@@ -3,7 +3,7 @@ from static import StaticTest
 from iohandler import TestIOHandler
 from ase.build import bulk
 
-def run_silicon(number, env, ref=False):
+def run_silicon(number, env, ref=False, comp=False):
   """Silicon 8 atoms (diamond) SZ/ordern LDA """
 
   name = "silicon"
@@ -21,6 +21,6 @@ def run_silicon(number, env, ref=False):
                     "minE.LTolerance" : 1.0E-6}
 
   tester = StaticTest(number, name, description, silicon, verbose=True)
-  handler = TestIOHandler(tester, ref)
+  handler = TestIOHandler(tester, ref, comp)
   handler.set_ion_path(env.ion_path, basis)
   handler.run_test(grid_cutoff, xc, kpts, basis, flags=conquest_flags)

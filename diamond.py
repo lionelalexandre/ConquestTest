@@ -4,8 +4,8 @@ from static import StaticTest
 from iohandler import TestIOHandler
 from ase.build import bulk
 
-def run_diamond(number, env, ref=False):
-  """Carbon 8 atoms (diamond) SZP/diagonalisation LDA """
+def run_diamond(number, env, ref=False, comp=False):
+  """Carbon 8 atoms (diamond) SZP/diagonalisation PBE """
 
   name = "diamond"
   description = "Diamond 8 atoms SZP diagonalisation"
@@ -18,6 +18,6 @@ def run_diamond(number, env, ref=False):
   diamond = bulk('C', 'diamond', a=3.6, cubic=True)
 
   tester = StaticTest(number, name, description, diamond, verbose=True)
-  handler = TestIOHandler(tester, ref)
+  handler = TestIOHandler(tester, ref, comp)
   handler.set_ion_path(env.ion_path, basis)
   handler.run_test(grid_cutoff, xc, kpts, basis)

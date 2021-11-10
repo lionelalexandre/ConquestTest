@@ -3,7 +3,7 @@ from static import StaticTest
 from iohandler import TestIOHandler
 from ase.build import bulk
 
-def run_mgo(number, env, ref=False):
+def run_mgo(number, env, ref=False, comp=False):
   """MgO 8 atoms (rocksalt) SZP/diagonalisation PBE """
 
   name = "MgO"
@@ -18,6 +18,6 @@ def run_mgo(number, env, ref=False):
   mgo = bulk('MgO', 'rocksalt', a=4.2798, cubic=True)
 
   tester = StaticTest(number, name, description, mgo, verbose=True)
-  handler = TestIOHandler(tester, ref)
+  handler = TestIOHandler(tester, ref, comp)
   handler.set_ion_path(env.ion_path, basis)
   handler.run_test(grid_cutoff, xc, kpts, basis)

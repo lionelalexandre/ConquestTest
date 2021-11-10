@@ -3,7 +3,7 @@ from eos import EOSTest
 from iohandler import TestIOHandler
 from ase.build import bulk
 
-def run_silicon_eos(number, env, ref=False):
+def run_silicon_eos(number, env, ref=False, comp=False):
   """Silicon 8 atoms (diamond) SZ/diagonalisation LDA equation of state"""
 
   name = "silicon_eos"
@@ -17,6 +17,6 @@ def run_silicon_eos(number, env, ref=False):
   silicon = bulk('Si', 'diamond', a=5.563158, cubic=True)
 
   tester = EOSTest(number, name, description, silicon, verbose=True)
-  handler = TestIOHandler(tester, ref)
+  handler = TestIOHandler(tester, ref, comp)
   handler.set_ion_path(env.ion_path, basis)
   handler.run_test(grid_cutoff, xc, kpts, basis)

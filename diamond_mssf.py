@@ -3,7 +3,7 @@ from static import StaticTest
 from iohandler import TestIOHandler
 from ase.build import bulk
 
-def run_diamond_mssf(number, env, ref=False):
+def run_diamond_mssf(number, env, ref=False, comp=False):
   """Carbon 8 atoms (diamond) DZP/SZ/MSSF/diagonalisation LDA """
 
   name = "diamond_mssf"
@@ -28,6 +28,6 @@ def run_diamond_mssf(number, env, ref=False):
                  "Atom.LFDRange"         : 7.0}}
 
   tester = StaticTest(number, name, description, diamond, verbose=True)
-  handler = TestIOHandler(tester, ref)
+  handler = TestIOHandler(tester, ref, comp)
   handler.set_ion_path(env.ion_path, basis)
   handler.run_test(grid_cutoff, xc, kpts, basis, flags=conquest_flags)

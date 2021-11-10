@@ -22,7 +22,7 @@ class TestIOHandler:
     Path to test data file
   """
 
-  def __init__(self, test_object, ref=False):
+  def __init__(self, test_object, ref=False, comp=False):
     """Constructor for TestIOHandler
 
     Parameters
@@ -35,6 +35,7 @@ class TestIOHandler:
     self.tester = test_object
     self.ref = ref
     self.ref_dir = "reference"
+    self.comp = comp
     self.test_dir = "test"
     name = self.tester.get_name
     self.ref_path = os.path.join(self.ref_dir, self.tester.get_name() + ".ref")
@@ -64,9 +65,9 @@ class TestIOHandler:
 
   def run_test(self, grid_cutoff, xc, kpts, basis, flags={}):
     """Run the test
-
-    If ref = True, do the reference calculation and store the results, otherwise
-    read the reference results and compare them against the test calculation.
+    If ref  = False and comp = False run test calculations. Results are store in test directory    
+    If ref  = True, do the reference calculations and store the results in reference directory
+    If comp = True, read the reference results and compare them against the test calculation.
 
     Parameters
     ----------
@@ -85,15 +86,30 @@ class TestIOHandler:
     if self.ref:
       if os.path.isfile(self.ref_path):
         print(f'{self.ref_path} exists, skipping calculation')
+        
       else:
         self.chdir(self.ref_dir)
         self.tester.calculate(grid_cutoff, xc, kpts, basis, **flags)
         self.chdir()
         self.tester.write(self.ref_path)
+        
     else:
-      self.chdir(self.test_dir)
-      self.tester.calculate(grid_cutoff, xc, kpts, basis, **flags)
-      self.chdir()
-      self.tester.read(self.ref_path)
-      self.tester.compare()
-      self.tester.write(self.test_path)
+      if self.comp:          
+        self.chdir(self.test_dir)
+        self.tester.calculate(grid_cutoff, xc, kpts, basis, **flags)
+        self.chdir()
+
+        if not os.path.isfile(self.ref_path):
+          print(f'{self.ref_path} does not exist, no comparison')
+
+        else:
+          self.tester.read(self.ref_path)
+          self.tester.compare()
+          self.tester.write(self.test_path)
+          
+      else:
+        self.chdir(self.test_dir)
+        self.tester.calculate(grid_cutoff, xc, kpts, basis, **flags)
+          
+          
+          

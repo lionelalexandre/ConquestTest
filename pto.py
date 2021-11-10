@@ -3,7 +3,7 @@ from static import StaticTest
 from iohandler import TestIOHandler
 from ase import Atoms
 
-def run_pto(number, env, ref=False):
+def run_pto(number, env, ref=False, comp=False):
   """Lead titanate 6 atoms SZP/diagonalisation PBE """
 
   name = "PTO"
@@ -29,6 +29,6 @@ def run_pto(number, env, ref=False):
   pto.set_cell(a*np.identity(3), scale_atoms=True)
 
   tester = StaticTest(number, name, description, pto, verbose=True)
-  handler = TestIOHandler(tester, ref)
+  handler = TestIOHandler(tester, ref, comp)
   handler.set_ion_path(env.ion_path, basis)
   handler.run_test(grid_cutoff, xc, kpts, basis, flags=conquest_flags)

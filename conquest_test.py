@@ -15,12 +15,14 @@ Run CONQUEST functionality tests
 optional arguments:
   -h, --help            show this help message and exit
   --reference           Generate reference dataset (default: False)
+  --compare             Compare to reference dataset (default: False)  
   --cqexe CQ_EXE        Conquest executable (default: None)
   --basisgen MAKEION_EXE
                         Conquest basis generation tool executable (default:
                         MakeIonFiles)
   --pseudopath PP_PATH  Path to pseudopotential library (default: None)
   --asepath ASE_PATH    Path to ASE library (default: None)
+  --ionpath ION_PATH    Path to .ion files (default: ./ion_files)
 """
 
 import argparse
@@ -31,6 +33,8 @@ parser = argparse.ArgumentParser(description="Run CONQUEST functionality tests",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('--reference', action='store_true', dest='ref',
                     default=False, help='Generate reference dataset')
+parser.add_argument('--compare', action='store_true', dest='comp',
+                    default=False, help='Compare to reference dataset')
 parser.add_argument('--cqexe', action='store', dest='cq_exe',
                     help='Conquest executable', default=None)
 parser.add_argument('--basisgen', action='store', dest='makeion_exe',
@@ -69,11 +73,11 @@ else:
   print('Running tests')
 
 # Run the tests
-run_water_molecule(1, env, ref=cliopts.ref)
-run_diamond(2, env, ref=cliopts.ref)
-run_silicon(3, env, ref=cliopts.ref)
-run_diamond_mssf(4, env, ref=cliopts.ref)
-run_pto(5, env, ref=cliopts.ref)
-run_ice(6, env, ref=cliopts.ref)
-run_mgo(7, env, ref=cliopts.ref)
-run_silicon_eos(8, env, ref=cliopts.ref)
+#run_water_molecule(1, env, ref=cliopts.ref, comp=cliopts.comp)
+#run_diamond(2, env, ref=cliopts.ref, comp=cliopts.comp)
+#run_silicon(3, env, ref=cliopts.ref, comp=cliopts.comp)
+#run_diamond_mssf(4, env, ref=cliopts.ref, comp=cliopts.comp)
+#run_pto(5, env, ref=cliopts.ref, comp=cliopts.comp)
+#run_ice(6, env, ref=cliopts.ref, comp=cliopts.comp)
+#run_mgo(7, env, ref=cliopts.ref, comp=cliopts.comp)
+run_silicon_eos(8, env, ref=cliopts.ref, comp=cliopts.comp)
