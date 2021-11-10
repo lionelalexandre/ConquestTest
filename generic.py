@@ -111,7 +111,7 @@ class GenericTest:
     if self.verbose:
       if component is None and atom is None:
         print(f'Test {self.number}, {self.name} failed: {quantity} = {scalar}')
-      elif component is None:
+      elif atom is None:
         print(f'Test {self.number}, {self.name} failed: component {component+1} {quantity} = {scalar}')
       else:
         print(f'Test {self.number}, {self.name} failed: atom {atom+1} component {component+1} {quantity} = {scalar}')

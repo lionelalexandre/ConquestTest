@@ -79,12 +79,12 @@ class StaticTest(GenericTest):
     for i in range(self.natoms):
       for j in range(3):
         if forces_diff[i,j] > self.dF:
-          self.print_fail("deltaF", energy_diff, component=j, atom=i)
+          self.print_fail("deltaF", forces_diff[j,i], component=j, atom=i)
           passed = False
 
     for j in range(3):
       if stress_diff[j] > self.dS:
-        self.print_fail("deltaS", energy_diff, component=j)
+        self.print_fail("deltaS", stress_diff[j], component=j)
 
     self.print_result(passed)
 
