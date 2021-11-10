@@ -14,6 +14,8 @@ class TestIOHandler:
     Toggle between reference calculation (True) and test calculation (False)
   ref_dir : str
     Directory for reference calculations and results
+  comp : bool
+    Decide to compare to reference (True) or not (False)
   test_dir : str
     Directory for test calculations and results
   ref_path : str
@@ -22,7 +24,7 @@ class TestIOHandler:
     Path to test data file
   """
 
-  def __init__(self, test_object, ref=False, comp=False):
+  def __init__(self, test_object, ref=False, comp=False, ref_dir="reference", test_dir="test", ):
     """Constructor for TestIOHandler
 
     Parameters
@@ -32,13 +34,13 @@ class TestIOHandler:
     ref : bool (default False)
       Whether to do the reference calculation (True) or test calculation (False)
     """
-    self.tester = test_object
-    self.ref = ref
-    self.ref_dir = "reference"
-    self.comp = comp
-    self.test_dir = "test"
+    self.tester   = test_object
+    self.ref      = ref
+    self.ref_dir  = ref_dir
+    self.comp     = comp
+    self.test_dir = test_dir
     name = self.tester.get_name
-    self.ref_path = os.path.join(self.ref_dir, self.tester.get_name() + ".ref")
+    self.ref_path  = os.path.join(self.ref_dir, self.tester.get_name() + ".ref")
     self.test_path = os.path.join(self.test_dir, self.tester.get_name() + ".dat")
     if ref:
       self.mkdir(self.ref_dir)
