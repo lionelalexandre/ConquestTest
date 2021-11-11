@@ -47,8 +47,8 @@ class TestIOHandler:
     if (self.ref_dir == self.test_dir):
         sys.exit('error TestIOHandler: ref_dir = test_dir')
         
-    print(f'reference directory: {os.path.join(self.ref_dir)}')  
-    print(f'test directory: {os.path.join(self.test_dir)}')  
+    #print(f'reference directory: {os.path.join(self.ref_dir)}')  
+    #print(f'test directory: {os.path.join(self.test_dir)}')  
            
     if ref:
       self.mkdir(self.ref_dir)
